@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Crown of Shadows</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+
+  <div id="global-bg"></div>
+  <div id="global-overlay"></div>
+
+  <nav id="navbar">
+    <div class="nav-brand" onclick="App.show('home')">
+      <span class="nav-crown">♛</span>
+      <span class="nav-title">CROWN OF SHADOWS</span>
+    </div>
+    <ul class="nav-links" id="nav-links">
+      <li><button class="nav-btn active" data-page="home"    onclick="App.show('home')">🏰 Home</button></li>
+      <li><button class="nav-btn"        data-page="lore"    onclick="App.show('lore')">📜 Lore</button></li>
+      <li><button class="nav-btn"        data-page="contact" onclick="App.show('contact')">✉ Contact</button></li>
+    </ul>
+    <div id="nav-user-bar" class="nav-user-bar"></div>
+    <button class="hamburger" id="hamburger" onclick="App.toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HOME -->
+  <div id="page-home" class="page active">
+    <div class="page-inner home-inner">
+      <div class="dragon-wrap">
+        <img src="assets/images/brasao.png" alt="Brasão" class="dragon-img"
+          onerror="this.style.display='none';document.getElementById('dragon-emoji').style.display='block'" />
+        <div id="dragon-emoji" class="dragon-emoji" style="display:none">♛</div>
+        <div class="dragon-glow"></div>
+      </div>
+      <div class="home-text">
+        <div class="home-badge">⚔ Medieval Fantasy RPG ⚔</div>
+        <h1 class="home-title">
+          <span class="ht1">CROWN OF</span>
+          <span class="ht2">SHADOWS</span>
+        </h1>
+        <p class="home-sub">Enter the shadows. Forge your legend. Claim the throne.</p>
+        <div class="home-btns">
+          <button class="btn-purple" onclick="App.showLogin()">⚔ Begin Adventure</button>
+          <button class="btn-outline" onclick="App.show('lore')">📜 Read the Lore</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOGIN -->
+  <div id="page-login" class="page">
+    <div class="page-inner">
+      <div class="auth-card">
+        <div class="auth-orn">♛</div>
+        <h2 class="auth-title">Entrar no Reino</h2>
+        <p class="auth-sub">Faça login para continuar sua aventura</p>
+        <form class="auth-form" onsubmit="Auth.loginEmail(event)">
+          <input id="login-email" type="email"    class="form-inp" placeholder="Seu e-mail" required />
+          <input id="login-pass"  type="password" class="form-inp" placeholder="Sua senha" required />
+          <div id="login-err" class="auth-err hidden"></div>
+          <button type="submit" class="btn-purple" style="width:100%">⚔ Entrar</button>
+        </form>
+        <div class="auth-divider"><span>ou</span></div>
+        <button class="btn-google" onclick="Auth.googleSignIn()">
+          <svg width="18" height="18" viewBox="0 0 48 48" style="flex-shrink:0">
+            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+          </svg>
+          Entrar com Google
+        </button>
+        <p class="auth-switch">Não tem conta? <button class="auth-link" onclick="App.show('register')">Criar conta →</button></p>
+        <button class="auth-back" onclick="App.show('home')">← Voltar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- REGISTER -->
+  <div id="page-register" class="page">
+    <div class="page-inner">
+      <div class="auth-card">
+        <div class="auth-orn">⚔</div>
+        <h2 class="auth-title">Criar Conta</h2>
+        <p class="auth-sub">Junte-se à guilda dos aventureiros</p>
+        <form class="auth-form" onsubmit="Auth.registerEmail(event)">
+          <input id="reg-name"  type="text"     class="form-inp" placeholder="Nome do aventureiro" required />
+          <input id="reg-email" type="email"    class="form-inp" placeholder="Seu e-mail" required />
+          <input id="reg-pass"  type="password" class="form-inp" placeholder="Senha (mín. 8 caracteres)" minlength="8" required />
+          <div id="reg-err" class="auth-err hidden"></div>
+          <div class="terms-gate" id="terms-gate">
+            <div class="terms-gate-icon">📜</div>
+            <div class="terms-gate-text"><span>Termos de Uso</span><small>Leitura obrigatória antes de criar conta</small></div>
+            <button type="button" class="terms-gate-btn" onclick="Auth.openTermsModal()">Ler Termos</button>
+          </div>
+          <div class="terms-accepted hidden" id="terms-accepted"><span>✔ Termos aceitos</span></div>
+          <button type="submit" class="btn-purple" id="reg-submit-btn" style="width:100%" disabled>⚔ Criar Conta</button>
+        </form>
+        <p class="auth-switch">Já tem conta? <button class="auth-link" onclick="App.show('login')">Entrar →</button></p>
+        <button class="auth-back" onclick="App.show('home')">← Voltar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LORE -->
+  <div id="page-lore" class="page">
+    <div class="page-inner scrollable">
+      <div class="pg-header">
+        <div class="pg-orn">✦ ✦ ✦</div>
+        <h2 class="pg-title">The Ancient Lore</h2>
+        <p class="pg-sub">A kingdom torn apart by darkness and ancient magic</p>
+      </div>
+      <div class="lore-grid">
+        <div class="lore-card">
+          <div class="lore-icon">🏰</div>
+          <h3>The Kingdom Falls</h3>
+          <p>Centuries ago, seven ancient relics maintained the magical balance of the realm. When the dark portal opened, chaos consumed the land and monsters poured forth from the abyss.</p>
+        </div>
+        <div class="lore-card featured">
+          <div class="lore-icon">🔮</div>
+          <h3>The Prophecy</h3>
+          <p>Three heroes — a mage, a warrior, and a rogue — are destined to recover the scattered relics and seal the portal before an ancient creature crosses into the mortal world.</p>
+        </div>
+        <div class="lore-card">
+          <div class="lore-icon">⚔</div>
+          <h3>The Last Hope</h3>
+          <p>Harley, Morgan, and Lyria must traverse cursed forests, ancient ruins, and dark dungeons. Only together can they defeat the Portal Guardian and restore the Crown of Shadows.</p>
+        </div>
+      </div>
+      <div class="lore-timeline">
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-body"><h4>Year 0</h4><p>The Seven Relics are forged and placed across the kingdom</p></div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-body"><h4>Year 847</h4><p>The Dark Portal opens — relics scatter, monsters emerge</p></div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-body"><h4>Year 848</h4><p>The three heroes begin their quest to reclaim the relics</p></div></div>
+        <div class="tl-item"><div class="tl-dot gold"></div><div class="tl-body"><h4>Now</h4><p>Your adventure begins — the fate of the kingdom is in your hands</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEROES -->
+  <div id="page-heroes" class="page">
+    <div class="page-inner scrollable">
+      <button class="btn-back-map" onclick="App.show('board')">← Voltar ao Mapa</button>
+      <div class="pg-header">
+        <div class="pg-orn">✦ ✦ ✦</div>
+        <h2 class="pg-title">Choose Your Hero</h2>
+        <p class="pg-sub">Three warriors, three destinies, one kingdom to save</p>
+      </div>
+      <div class="chars-grid">
+        <div class="char-card" data-char="harley">
+          <div class="char-glow glow-purple"></div>
+          <div class="char-portrait-wrap">
+            <img src="assets/images/harley.jpg" alt="Harley" class="char-portrait"
+              onerror="this.parentElement.innerHTML='<div class=char-fallback>🧙‍♀️<span>HARLEY</span></div>'" />
+            <div class="char-badge purple">Mage</div>
+          </div>
+          <div class="char-body">
+            <h3 class="char-name">Harley</h3>
+            <p class="char-role">The Arcane Sorceress</p>
+            <p class="char-desc">Blonde hair, purple eyes, master of arcane forces. Her spells can shatter mountains.</p>
+            <div class="char-bars">
+              <div class="bar-row"><span>HP</span><div class="bar"><div class="bar-fill hp" style="width:60%"></div></div><span>80</span></div>
+              <div class="bar-row"><span>Mana</span><div class="bar"><div class="bar-fill mana" style="width:100%"></div></div><span>100</span></div>
+              <div class="bar-row"><span>ATK</span><div class="bar"><div class="bar-fill atk" style="width:85%"></div></div><span>18</span></div>
+              <div class="bar-row"><span>DEF</span><div class="bar"><div class="bar-fill def" style="width:35%"></div></div><span>8</span></div>
+            </div>
+            <div class="char-ability">✨ <strong>Arcane Orb</strong> — Ranged magic, costs 25 mana</div>
+            <button class="btn-select" id="sel-harley" onclick="selectHero('harley')">Select Harley</button>
+          </div>
+        </div>
+        <div class="char-card featured-char" data-char="morgan">
+          <div class="char-glow glow-red"></div>
+          <div class="char-featured-badge">⭐ FEATURED</div>
+          <div class="char-portrait-wrap">
+            <img src="assets/images/morgan.jpg" alt="Morgan" class="char-portrait"
+              onerror="this.parentElement.innerHTML='<div class=char-fallback>⚔️<span>MORGAN</span></div>'" />
+            <div class="char-badge red">Warrior</div>
+          </div>
+          <div class="char-body">
+            <h3 class="char-name">Morgan</h3>
+            <p class="char-role">The Iron Warrior</p>
+            <p class="char-desc">Red-haired, green-eyed, unbreakable will. Her blade has never missed its mark.</p>
+            <div class="char-bars">
+              <div class="bar-row"><span>HP</span><div class="bar"><div class="bar-fill hp" style="width:100%"></div></div><span>130</span></div>
+              <div class="bar-row"><span>Mana</span><div class="bar"><div class="bar-fill mana" style="width:30%"></div></div><span>40</span></div>
+              <div class="bar-row"><span>ATK</span><div class="bar"><div class="bar-fill atk" style="width:100%"></div></div><span>22</span></div>
+              <div class="bar-row"><span>DEF</span><div class="bar"><div class="bar-fill def" style="width:90%"></div></div><span>18</span></div>
+            </div>
+            <div class="char-ability">⚔ <strong>Powerful Strike</strong> — Devastating melee, 40 dmg</div>
+            <button class="btn-select" id="sel-morgan" onclick="selectHero('morgan')">Select Morgan</button>
+          </div>
+        </div>
+        <div class="char-card" data-char="lyria">
+          <div class="char-glow glow-dark"></div>
+          <div class="char-portrait-wrap">
+            <img src="assets/images/lyria.jpg" alt="Lyria" class="char-portrait"
+              onerror="this.parentElement.innerHTML='<div class=char-fallback>🗡️<span>LYRIA</span></div>'" />
+            <div class="char-badge dark">Rogue</div>
+          </div>
+          <div class="char-body">
+            <h3 class="char-name">Lyria</h3>
+            <p class="char-role">The Shadow Rogue</p>
+            <p class="char-desc">Dark and mysterious, Lyria moves like smoke. Her critical strikes are legendary.</p>
+            <div class="char-bars">
+              <div class="bar-row"><span>HP</span><div class="bar"><div class="bar-fill hp" style="width:70%"></div></div><span>90</span></div>
+              <div class="bar-row"><span>Mana</span><div class="bar"><div class="bar-fill mana" style="width:60%"></div></div><span>60</span></div>
+              <div class="bar-row"><span>ATK</span><div class="bar"><div class="bar-fill atk" style="width:90%"></div></div><span>20</span></div>
+              <div class="bar-row"><span>DEF</span><div class="bar"><div class="bar-fill def" style="width:55%"></div></div><span>12</span></div>
+            </div>
+            <div class="char-ability">🗡 <strong>Shadow Attack</strong> — High crit, 30% bonus dmg</div>
+            <button class="btn-select" id="sel-lyria" onclick="selectHero('lyria')">Select Lyria</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOARD -->
+  <div id="page-board" class="page">
+    <aside class="game-sidebar" id="game-sidebar">
+      <button class="sb-btn sb-active" data-sb="board" onclick="App.sbNav('board')" title="Mapa">
+        <svg class="sb-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="3,6 9,3 15,6 21,3 21,18 15,21 9,18 3,21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
+        <span class="sb-label">Mapa</span>
+      </button>
+      <button class="sb-btn" data-sb="battle" onclick="window.location.href='html/joga.html'" title="Joga">
+        <svg class="sb-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="10" width="20" height="12" rx="1"/><path d="M6 10V6h2v2h2V6h2v2h2V6h2v4"/><rect x="9" y="15" width="6" height="7"/></svg>
+        <span class="sb-label">Joga</span>
+      </button>
+      <button class="sb-btn" data-sb="heroes" onclick="App.sbNav('heroes')" title="Heróis">
+        <svg class="sb-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="7" r="4"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/><path d="M12 11v4M10 13h4"/></svg>
+        <span class="sb-label">Heróis</span>
+      </button>
+      <button class="sb-btn" data-sb="settings" onclick="App.sbNav('settings')" title="Configurações">
+        <span class="sb-emoji">⚙</span>
+        <span class="sb-label">Config</span>
+      </button>
+    </aside>
+    <div class="board-main board-main-full">
+      <div class="world-map-wrap">
+        <div class="map-title-bar">
+          <span class="map-title-crown">♛</span>
+          <span class="map-title-text">VALDORIA — MAPA DO REINO</span>
+          <span class="map-title-crown">♛</span>
+        </div>
+        <div class="world-map" id="world-map">
+          <img src="assets/images/mapa.jpeg" alt="Mapa de Valdoria" class="map-bg-img" />
+          <div class="map-vignette"></div>
+          <div class="map-fog-layer"></div>
+          <div class="map-particles" id="map-particles"></div>
+
+          <button class="map-pin" style="top:18%;left:62%" data-name="Castelo Real" data-tag="Nível 5+ · Boss Final" data-desc="Sede do Rei Aldric III. O Dragão Valdrak dorme sob o trono. Perigo máximo." data-danger="5" onclick="MapBoard.openPin(this)">
+            <div class="pin-pulse"></div>
+            <div class="pin-icon">🏰</div>
+            <div class="pin-label">Castelo Real</div>
+          </button>
+          <button class="map-pin pin-start" style="top:72%;left:30%" data-name="Vila de Elden" data-tag="Início · Seguro" data-desc="Último bastião da humanidade. Muros rachados, esperança intacta. Ponto de partida." data-danger="0" onclick="MapBoard.openPin(this)">
+            <div class="pin-pulse pin-pulse-green"></div>
+            <div class="pin-icon">🏘</div>
+            <div class="pin-label">Vila de Elden</div>
+          </button>
+          <button class="map-pin" style="top:35%;left:20%" data-name="Floresta de Mirval" data-tag="Nível 2+ · Perigoso" data-desc="Árvores carbonizadas pelo sopro de Valdrak. Elfos se escondem entre as sombras." data-danger="3" onclick="MapBoard.openPin(this)">
+            <div class="pin-pulse pin-pulse-green"></div>
+            <div class="pin-icon">🌲</div>
+            <div class="pin-label">Floresta de Mirval</div>
+          </button>
+          <button class="map-pin" style="top:25%;left:48%" data-name="Ruínas de Valdor" data-tag="Nível 3+ · Mortal" data-desc="A capital destruída. Segredos do Grimório enterrados sob cinzas e ossos." data-danger="4" onclick="MapBoard.openPin(this)">
+            <div class="pin-pulse pin-pulse-bronze"></div>
+            <div class="pin-icon">🏚</div>
+            <div class="pin-label">Ruínas de Valdor</div>
+          </button>
+          <button class="map-pin" style="top:55%;left:72%" data-name="Pantano de Sombra" data-tag="Nível 4+ · Mortal" data-desc="Águas negras guardam a Harpa dos Elfos. Almas perdidas atacam os intrusos." data-danger="4" onclick="MapBoard.openPin(this)">
+            <div class="pin-pulse pin-pulse-blue"></div>
+            <div class="pin-icon">🌊</div>
+            <div class="pin-label">Pantano de Sombra</div>
+          </button>
+          <button class="map-pin" style="top:15%;left:35%" data-name="Montanhas Eternas" data-tag="Nível 5+ · Lendário" data-desc="Gelo eterno. A Chama Inversa nasce aqui. Gigantes e Grifos das Neves patrulham." data-danger="5" onclick="MapBoard.openPin(this)">
+            <div class="pin-pulse pin-pulse-white"></div>
+            <div class="pin-icon">⛰</div>
+            <div class="pin-label">Montanhas Eternas</div>
+          </button>
+
+          <div class="map-tooltip hidden" id="map-tooltip">
+            <button class="mtt-close" onclick="MapBoard.closePin()">✕</button>
+            <div class="mtt-icon" id="mtt-icon"></div>
+            <div class="mtt-name" id="mtt-name"></div>
+            <div class="mtt-tag" id="mtt-tag"></div>
+            <div class="mtt-danger" id="mtt-danger"></div>
+            <div class="mtt-desc" id="mtt-desc"></div>
+            <button class="mtt-btn" id="mtt-btn">⚔ Explorar Região</button>
+          </div>
+        </div>
+        <div class="map-legend-bar">
+          <div class="mlb-item"><span class="mlb-dot" style="background:#4caf50"></span>Seguro</div>
+          <div class="mlb-item"><span class="mlb-dot" style="background:#ffc107"></span>Perigoso</div>
+          <div class="mlb-item"><span class="mlb-dot" style="background:#f44336"></span>Mortal</div>
+          <div class="mlb-item"><span class="mlb-dot" style="background:#9c27b0"></span>Lendário</div>
+          <div class="mlb-sep"></div>
+          <div class="mlb-item" style="color:rgba(255,255,255,0.4);font-size:0.65rem">Clique nos pins para explorar</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div id="page-settings" class="page">
+    <div class="page-inner">
+      <div class="settings-panel">
+        <div class="settings-header">
+          <span class="settings-gear">⚙</span>
+          <div>
+            <h2 class="settings-title">Configurações</h2>
+            <p class="settings-sub">Gerencie sua conta e preferências</p>
+          </div>
+        </div>
+        <div class="settings-section">
+          <div class="settings-section-label">Conta</div>
+          <div class="settings-user-card">
+            <div class="suc-avatar">♛</div>
+            <div class="suc-info">
+              <div class="suc-name" id="suc-name">Aventureiro</div>
+              <div class="suc-email" id="suc-email">—</div>
+            </div>
+            <span class="suc-badge">Ativo</span>
+          </div>
+          <button class="settings-btn settings-btn-danger" onclick="Auth.logout()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Sair da Conta
+          </button>
+        </div>
+        <div class="settings-section">
+          <div class="settings-section-label">Progresso</div>
+          <div class="settings-info-row">💾 Salvo automaticamente no navegador</div>
+          <button class="settings-btn settings-btn-warn" onclick="Game.initState();Game.saveGame();showToast('Progresso reiniciado!');">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.95"/></svg>
+            Reiniciar Progresso
+          </button>
+        </div>
+        <div class="settings-section">
+          <div class="settings-section-label">Navegação</div>
+          <button class="settings-btn settings-btn-primary" onclick="App.show('board')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3,6 9,3 15,6 21,3 21,18 15,21 9,18 3,21"/></svg>
+            Voltar ao Mapa
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BATTLE -->
+  <div id="page-battle" class="page">
+    <div class="page-inner board-inner">
+      <div class="board-side left-side">
+        <div class="side-box">
+          <div class="side-title">⚔ TURN</div>
+          <div id="turn-indicator" class="turn-ind">— SELECT HERO —</div>
+          <div id="char-info" class="char-info"></div>
+          <div class="act-btns">
+            <button class="btn-act" onclick="Game.rollD20()">🎲 Roll D20</button>
+            <button class="btn-act gold-act" onclick="Game.useAbility()">✨ Ability</button>
+            <button class="btn-act end-act" onclick="Game.endTurn()">⏭ End Turn</button>
+          </div>
+          <div id="d20-box" class="d20-box hidden"></div>
+        </div>
+        <div class="side-box log-side">
+          <div class="side-title">📜 LOG</div>
+          <div id="log-list"></div>
+        </div>
+      </div>
+      <div class="board-center">
+        <button class="btn-back-map" onclick="App.show('board')">← Voltar ao Mapa</button>
+        <div id="game-board" class="game-board"></div>
+        <div class="board-legend"><span>🟣 Move</span><span>🔴 Attack</span><span>🟡 Selected</span></div>
+      </div>
+      <div class="board-side right-side">
+        <div class="side-box"><div class="side-title">👹 ENEMIES</div><div id="enemy-list"></div></div>
+        <div class="side-box"><div class="side-title">🎒 ITEMS</div><div id="inv-list"></div></div>
+        <div class="side-box"><div class="side-title">📜 QUESTS</div><div id="quest-list"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INVENTORY -->
+  <div id="page-inventory" class="page">
+    <div class="page-inner scrollable">
+      <button class="btn-back-map" onclick="App.show('board')">← Voltar ao Mapa</button>
+      <div class="pg-header">
+        <div class="pg-orn">✦ ✦ ✦</div>
+        <h2 class="pg-title">Inventory</h2>
+        <p class="pg-sub">Your collected items and equipment</p>
+      </div>
+      <div id="inv-full-grid" class="inv-full-grid"></div>
+    </div>
+  </div>
+
+  <!-- TERMS -->
+  <div id="page-terms" class="page">
+    <div class="page-inner scrollable">
+      <div class="pg-header">
+        <div class="pg-orn">✦ ✦ ✦</div>
+        <h2 class="pg-title">Termos de Uso</h2>
+        <p class="pg-sub">Leia com atenção antes de embarcar nesta aventura</p>
+      </div>
+      <div class="terms-wrap">
+        <div class="terms-last-update">📅 Última atualização: Janeiro de 2025</div>
+        <div class="terms-section"><div class="terms-icon">⚔</div><h3 class="terms-h">1. Aceitação dos Termos</h3><p>Ao acessar ou utilizar <strong>Crown of Shadows</strong>, você concorda em cumprir e estar vinculado a estes Termos de Uso.</p></div>
+        <div class="terms-section"><div class="terms-icon">🧙</div><h3 class="terms-h">2. Elegibilidade e Conta</h3><p>Para criar uma conta você deve ter pelo menos <strong>13 anos de idade</strong>. Você é responsável por manter a confidencialidade de suas credenciais de acesso.</p></div>
+        <div class="terms-section"><div class="terms-icon">🔮</div><h3 class="terms-h">3. Uso Permitido</h3><p>Crown of Shadows é disponibilizado exclusivamente para uso pessoal e não comercial. É expressamente proibido usar bots, scripts ou qualquer automação.</p></div>
+        <div class="terms-section"><div class="terms-icon">🏰</div><h3 class="terms-h">4. Propriedade Intelectual</h3><p>Todo o conteúdo de Crown of Shadows é propriedade exclusiva dos criadores do jogo e está protegido pelas leis de direitos autorais aplicáveis.</p></div>
+        <div class="terms-section"><div class="terms-icon">🛡</div><h3 class="terms-h">5. Privacidade e Dados</h3><p>Coletamos apenas os dados necessários para o funcionamento do jogo. Seus dados são armazenados localmente no seu dispositivo via <em>localStorage</em> e <em>sessionStorage</em>.</p></div>
+        <div class="terms-section"><div class="terms-icon">⚡</div><h3 class="terms-h">6. Disponibilidade do Serviço</h3><p>Crown of Shadows é fornecido <strong>"como está"</strong>, sem garantias de disponibilidade contínua.</p></div>
+        <div class="terms-section"><div class="terms-icon">💀</div><h3 class="terms-h">7. Limitação de Responsabilidade</h3><p>Em nenhuma circunstância os criadores de Crown of Shadows serão responsáveis por danos decorrentes do uso do jogo.</p></div>
+        <div class="terms-section"><div class="terms-icon">📜</div><h3 class="terms-h">8. Conduta do Usuário</h3><p>Comportamentos abusivos ou tentativas de exploração de falhas resultarão no encerramento imediato da conta.</p></div>
+        <div class="terms-section"><div class="terms-icon">🌀</div><h3 class="terms-h">9. Alterações nos Termos</h3><p>Reservamo-nos o direito de modificar estes Termos de Uso a qualquer momento.</p></div>
+        <div class="terms-section"><div class="terms-icon">✉</div><h3 class="terms-h">10. Contato</h3><p>Para dúvidas: <strong>legal@crownofshadows.game</strong> ou <button class="auth-link" onclick="App.show('contact')">Contato</button>.</p></div>
+        <div class="terms-footer">
+          <div class="terms-seal">♛</div>
+          <p>Ao utilizar Crown of Shadows, você declara ter lido, compreendido e concordado com todos os termos acima.</p>
+          <div class="terms-btns">
+            <button class="btn-purple" onclick="App.show('home')">⚔ Aceitar e Jogar</button>
+            <button class="btn-outline" onclick="App.show('contact')">✉ Falar Conosco</button>
+          </div>
+          <button class="auth-back" id="terms-back-btn" onclick="App.show('home')">← Voltar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div id="page-contact" class="page">
+    <div class="page-inner scrollable">
+      <div class="pg-header">
+        <div class="pg-orn">✦ ✦ ✦</div>
+        <h2 class="pg-title">Join the Guild</h2>
+        <p class="pg-sub">Send a raven to the Crown of Shadows council</p>
+      </div>
+      <div class="contact-wrap">
+        <div class="contact-info">
+          <div class="contact-item"><span>📜</span><div><strong>Lore &amp; Story</strong><p>lore@crownofshadows.game</p></div></div>
+          <div class="contact-item"><span>⚔</span><div><strong>Game Support</strong><p>support@crownofshadows.game</p></div></div>
+          <div class="contact-item"><span>🔮</span><div><strong>Community</strong><p>discord.gg/crownofshadows</p></div></div>
+        </div>
+        <form class="contact-form" onsubmit="submitForm(event)">
+          <input type="text" placeholder="Your Name, Adventurer" class="form-inp" required />
+          <input type="email" placeholder="Your email address" class="form-inp" required />
+          <select class="form-inp">
+            <option value="">Choose your inquiry...</option>
+            <option>Game Feedback</option><option>Bug Report</option>
+            <option>Lore Question</option><option>Partnership</option>
+          </select>
+          <textarea class="form-inp" rows="4" placeholder="Write your message to the council..."></textarea>
+          <button type="submit" class="btn-gold" style="width:100%">📜 Send Raven</button>
+          <div id="form-ok" class="form-ok hidden">✓ Your raven has been sent!</div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL TERMS -->
+  <div id="modal-terms" class="modal hidden">
+    <div class="modal-box terms-modal-box">
+      <div class="terms-modal-header">
+        <span class="terms-modal-icon">📜</span>
+        <h2 class="modal-title gold" style="font-size:1.1rem">Termos de Uso</h2>
+        <button class="lip-close" onclick="Auth.closeTermsModal()">✕</button>
+      </div>
+      <div class="terms-modal-body">
+        <div class="tmo-section"><h4>⚔ 1. Aceitação</h4><p>Ao criar uma conta em <strong>Crown of Shadows</strong>, você concorda em cumprir estes Termos.</p></div>
+        <div class="tmo-section"><h4>🧙 2. Elegibilidade</h4><p>Você deve ter pelo menos <strong>13 anos</strong> para criar uma conta.</p></div>
+        <div class="tmo-section"><h4>🔮 3. Uso Permitido</h4><p>O jogo é para uso pessoal e não comercial. É proibido usar bots, scripts ou engenharia reversa.</p></div>
+        <div class="tmo-section"><h4>🏰 4. Propriedade Intelectual</h4><p>Todo o conteúdo do jogo é propriedade dos criadores e protegido por direitos autorais.</p></div>
+        <div class="tmo-section"><h4>🛡 5. Privacidade</h4><p>Coletamos apenas nome, e-mail e progresso de jogo, armazenados localmente no seu dispositivo.</p></div>
+        <div class="tmo-section"><h4>⚡ 6. Disponibilidade</h4><p>O jogo é fornecido <strong>"como está"</strong>. Não nos responsabilizamos por perda de progresso.</p></div>
+        <div class="tmo-section"><h4>📜 7. Conduta</h4><p>Comportamentos abusivos resultarão no encerramento imediato da conta sem aviso prévio.</p></div>
+        <div class="tmo-section"><h4>✉ 8. Contato</h4><p>Dúvidas: <strong>legal@crownofshadows.game</strong></p></div>
+      </div>
+      <div class="terms-modal-footer">
+        <p class="terms-modal-note">⚠ Você precisa ler e confirmar os termos para criar sua conta.</p>
+        <div class="terms-modal-btns">
+          <button class="btn-outline" onclick="Auth.closeTermsModal()">Recusar</button>
+          <button class="btn-purple" onclick="Auth.acceptTerms()">✔ Li e Aceito os Termos</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODALS VICTORY/DEFEAT -->
+  <div id="modal-victory" class="modal hidden">
+    <div class="modal-box">
+      <h2 class="modal-title gold">⚔ MISSION COMPLETE ⚔</h2>
+      <p class="modal-sub">You sealed the portal and saved the kingdom!</p>
+      <div id="victory-stats" class="victory-stats"></div>
+      <button class="btn-gold" onclick="Game.playAgain()">⚔ Play Again</button>
+    </div>
+  </div>
+  <div id="modal-defeat" class="modal hidden">
+    <div class="modal-box">
+      <h2 class="modal-title red">💀 ADVENTURE ENDED 💀</h2>
+      <p class="modal-sub">All heroes have fallen to the darkness...</p>
+      <button class="btn-gold" onclick="Game.playAgain()">⚔ Try Again</button>
+    </div>
+  </div>
+
+  <!-- LOC: Vila de Elden -->
+  <div id="page-loc-village" class="page">
+    <div class="page-inner scrollable">
+      <button class="btn-back-map" onclick="App.show('board')">← Voltar ao Mapa</button>
+      <div class="loc-page-hero" style="--loc-color:#4caf50">
+        <div class="lph-icon">🏘</div>
+        <div class="lph-info">
+          <div class="lph-tag">Início · Seguro</div>
+          <h2 class="lph-title">Vila de Elden</h2>
+          <div class="lph-stars" style="color:#4caf50">☆☆☆☆☆ <span>Seguro</span></div>
+        </div>
+      </div>
+      <div class="loc-page-body">
+        <div class="loc-lore-block">
+          <h3>História</h3>
+          <p>Elden foi fundada há trezentos anos por refugiados que fugiram da Grande Purga do Norte. Seus muros de pedra calcária, embora rachados pelo tempo e pelo sopro do dragão Valdrak, ainda sustentam a esperança de um povo que se recusa a desaparecer.</p>
+          <p>O ferreiro Aldous forja armas dia e noite, os olhos vermelhos de fumaça e determinação. A curandeira Mira distribui ervas e orações em partes iguais. As crianças ainda brincam nas ruelas — porque alguém precisa acreditar que haverá um amanhã.</p>
+          <p>Foi aqui que a profecia foi lida pela última vez em voz alta, na praça central, sob uma lua cor de sangue: <em>"Três almas forjadas em propósitos distintos caminharão juntas até o trono das sombras."</em></p>
+        </div>
+        <div class="loc-lore-block">
+          <h3>O que você encontra aqui</h3>
+          <ul class="loc-list">
+            <li>🧪 Poções de cura vendidas por Mira</li>
+            <li>⚔ Armas básicas na forja de Aldous</li>
+            <li>📜 Missões dos aldeões desesperados</li>
+            <li>🛏 Descanso completo — HP e Mana restaurados</li>
+            <li>📖 Fragmento I do Grimório escondido na biblioteca</li>
+          </ul>
+        </div>
+        <div class="loc-lore-block">
+          <h3>Rumores</h3>
+          <p><em>"Dizem que o velho Tobias viu o dragão sobrevoar o castelo três noites seguidas. Cada vez mais baixo."</em> — Aldeão anônimo</p>
+          <p><em>"A biblioteca tem um livro que ninguém consegue abrir. Está trancado com magia antiga. Talvez seja importante."</em> — Mira, a curandeira</p>
+        </div>
+        <div class="loc-lore-block">
+          <h3>Personagens Notáveis</h3>
+          <ul class="loc-list">
+            <li>🔨 <strong>Aldous, o Ferreiro</strong> — Vende armas e armaduras. Conhece segredos sobre o metal das escamas de Valdrak</li>
+            <li>🌿 <strong>Mira, a Curandeira</strong> — Vende poções. Guarda o Fragmento I do Grimório sem saber o que é</li>
+            <li>👴 <strong>Tobias, o Ancião</strong> — Único sobrevivente da queda do castelo. Sabe o caminho pelos túneis secretos</li>
+          </ul>
+        </div>
+      </div>
+      <button class="loc-enter-btn" style="--loc-color:#4caf50" onclick="App.goPlay()">⚔ Iniciar Aventura</button>
+    </div>
+  </div>
+
+  <!-- LOC: Floresta de Mirval -->
+  <div id="page-loc-forest" class="page">
+    <div class="page-inner scrollable">
+      <button class="btn-back-map" onclick="App.show('board')">← Voltar ao Mapa</button>
+      <div class="loc-page-hero" style="--loc-color:#8bc34a">
+        <div class="lph-icon">🌲</div>
+        <div class="lph-info">
+          <div class="lph-tag">Nível 2+ · Perigoso</div>
+          <h2 class="lph-title">Floresta de Mirval</h2>
+          <div class="lph-stars" style="color:#ffc107">★★★☆☆ <span>Médio</span></div>
+        </div>
+      </div>
+      <div class="loc-page-body">
+        <div class="loc-lore-block">
+          <h3>História</h3>
+          <p>Mirval já foi o coração verde do reino — um santuário élfico de mil anos onde as árvores cantavam ao vento e os rios corriam com água de luz. Isso foi antes de Valdrak.</p>
+          <p>O dragão sobrevoou a floresta em sua primeira fuga do castelo, e seu sopro de fogo negro carbonizou metade das árvores ancestrais. Os elfos que sobreviveram se tornaram algo diferente — seres de sombra e raiva, guardiões de uma floresta que já não reconhecem.</p>
+          <p>No centro da floresta morta, uma árvore ainda vive. Os elfos a chamam de <em>Mirval'eth</em> — a Última Memória. Dizem que em suas raízes está enterrado o segundo fragmento do Grimório de Valdrak.</p>
+        </div>
+        <div class="loc-lore-block">
+          <h3>Perigos</h3>
+          <ul class="loc-list">
+            <li>🧝 Elfos das Sombras — arqueiros furtivos, atacam sem aviso</li>
+            <li>🕷 Aranhas Carbonizadas — veneno paralisante por 2 turnos</li>
+            <li>🌑 Névoa Negra — reduz visibilidade e -3 DEF enquanto ativa</li>
+            <li>🔥 Armadilhas de fogo élfico nas trilhas principais</li>
+            <li>🌳 Árvores Sentinelas — atacam quem se aproxima da Mirval'eth sem permissão</li>
+          </ul>
+        </div>
+        <div class="loc-lore-block">
+          <h3>Recompensas</h3>
+          <p>Quem sobreviver encontrará o <strong>Arco de Mirval</strong> — uma arma élfica que nunca erra no escuro — e o <strong>Fragmento II do Grimório</strong>, gravado na casca da Última Memória. Este fragmento revela que luz élfica causa dano dobrado nas escamas de Valdrak.</p>
+        </div>
+        <div class="loc-lore-block">
+          <h3>A Última Memória</h3>
+          <p>A árvore Mirval'eth tem consciência. Ela testa os visitantes — os dignos recebem o fragmento voluntariamente. Os indignos enfrentam a ira de toda a floresta ao mesmo tempo. Não há meio-termo.</p>
+        </div>
+      </div>
+      <button class="loc-enter-btn" style="--loc-color:#8bc34a" onclick="App.goPlay()">⚔ Entrar na Floresta</button>
+    </div>
+  </div>
+
+  <!-- LOC: Ruínas de Valdor -->
+  <div id="page-loc-ruins" class="page">
+    <div class="page-inner scrollable">
+      <button class="btn-back-map" onclick="App.show('board')">← Voltar ao Mapa</button>
+      <div class="loc-page-hero" style="--loc-color:#c4874a">
+        <div class="lph-icon">🏚</div>
+        <div class="lph-info">
+          <div class="lph-tag">Nível 3+ · Mortal</div>
+          <h2 class="lph-title">Ruínas de Valdor</h2>
+          <div class="lph-stars" style="color:#ff9800">★★★★☆ <span>Difícil</span></div>
+        </div>
+      </div>
+      <div class="loc-page-body">
+        <div class="loc-lore-block">
+          <h3>História</h3>
+          <p>Valdor foi a capital do reino — uma cidade de cem mil almas, torres de mármore branco e jardins suspensos. Em uma única noite, o dragão Valdrak a reduziu a cinzas e ossos.</p>
+          <p>Isso foi há quarenta anos. Hoje, as ruínas são um labirinto de pedras enegrecidas e memórias quebradas. Os mortos não descansam aqui — eles patrulham, ainda vestindo as armaduras que não os salvaram.</p>
+          <p>O Arquimago Serath, que tentou selar Valdrak com o Grimório, morreu nessas ruas. Seu corpo nunca foi encontrado. Mas seus fragmentos de conhecimento foram espalhados pelas ruínas como uma última defesa — ou uma última armadilha.</p>
+        </div>
+        <div class="loc-lore-block">
+          <h3>Perigos</h3>
+          <ul class="loc-list">
+            <li>💀 Esqueletos de Soldados — armadura pesada, lentos mas com 60 HP cada</li>
+            <li>👻 Espectros do Arquimago — imunes a dano físico, atacam a mente</li>
+            <li>🪤 Runas Explosivas — armadilhas mágicas no chão, 3d6 de dano</li>
+            <li>🌑 Colapso Estrutural — evento aleatório, dano em área</li>
+            <li>🔮 Golem de Pedra — guardião do Fragmento III, 120 HP</li>
+          </ul>
+        </div>
+        <div class="loc-lore-block">
+          <h3>Os Três Fragmentos das Ruínas</h3>
+          <p>Três dos cinco fragmentos do Grimório estão escondidos aqui. O <strong>Fragmento III</strong> revela o ponto cego de Valdrak — 2 metros à sua esquerda, onde seu sopro nunca alcança. Heróis que sabem disso podem se posicionar estrategicamente na batalha final.</p>
+        </div>
+        <div class="loc-lore-block">
+          <h3>O Espectro de Serath</h3>
+          <p>O Arquimago Serath ainda vaga pelas ruínas como espectro. Ele não é hostil — está confuso, preso entre a vida e a morte. Se os heróis conseguirem comunicar com ele, ele revela a localização exata dos fragmentos e o segredo dos túneis sob o castelo.</p>
+        </div>
+      </div>
+      <button class="loc-enter-btn" style="--loc-color:#c4874a" onclick="App.goPlay()">⚔ Explorar as Ruínas</button>
+    </div>
+  </div>
+
+  <!-- LOC: Pantano de Sombra -->
+  <div id="page-loc-swamp" class="page">
+    <div class="page-inner scrollable">
+      <button class="btn-back-map" onclick="App.show('board')">← Voltar ao Mapa</button>
+      <div class="loc-page-hero" style="--loc-color:#5c9aff">
+        <div class="lph-icon">🌊</div>
+        <div class="lph-info">
+          <div class="lph-tag">Nível 4+ · Mortal</div>
+          <h2 class="lph-title">Pantano de Sombra</h2>
+          <div class="lph-stars" style="color:#f44336">★★★★☆ <span>Mortal</span></div>
+        </div>
+      </div>
+      <div class="loc-page-body">
+        <div class="loc-lore-block">
+          <h3>História</h3>
+          <p>Ninguém sabe ao certo quando o Pantano de Sombra surgiu. Os mapas antigos mostram apenas um lago cristalino nessa região. Hoje, as águas são negras como tinta e frias como morte.</p>
+          <p>A lenda diz que as almas dos que morreram sem sepultura durante a destruição de Valdor foram arrastadas pelas correntes subterrâneas até aqui. Elas não conseguem partir. E não permitem que outros partam facilmente.</p>
+          <p>No fundo do pantano, presa entre raízes de árvores mortas, está a <em>Harpa dos Elfos</em> — um instrumento capaz de paralisar Valdrak por três turnos completos se tocado na presença do dragão. O Fragmento IV do Grimório está gravado em suas cordas de prata.</p>
+        </div>
+        <div class="loc-lore-block">
+          <h3>Perigos</h3>
+          <ul class="loc-list">
+            <li>👁 Almas Perdidas — invisíveis até atacar, surgem das águas</li>
+            <li>🐊 Crocodilos das Sombras — emboscada, imobilizam por 1 turno</li>
+            <li>☠ Gás Tóxico — zonas fechadas causam 1d6 de dano por turno</li>
+            <li>🌀 Ilusões — o pantano distorce a percepção, heróis podem se perder</li>
+            <li>🌊 Afogamento — áreas de água profunda exigem teste de CON</li>
+          </ul>
+        </div>
+        <div class="loc-lore-block">
+          <h3>A Harpa dos Elfos</h3>
+          <p>Recuperar a Harpa dos Elfos é opcional — mas heróis que a carregam ao enfrentar Valdrak podem tocá-la uma vez durante a batalha, paralisando o dragão por 3 turnos completos. Isso pode ser a diferença entre vida e morte na Fase 3.</p>
+        </div>
+        <div class="loc-lore-block">
+          <h3>A Guardiã das Águas</h3>
+          <p><strong>Lyssa, a Afogada</strong> — uma elfa que morreu tentando recuperar a Harpa quarenta anos atrás. Seu espectro guarda o instrumento. Ela não é maligna — está cumprindo uma promessa feita em vida. Convencê-la a entregar a Harpa requer sabedoria, não força.</p>
+        </div>
+      </div>
+      <button class="loc-enter-btn" style="--loc-color:#5c9aff" onclick="App.goPlay()">⚔ Adentrar o Pantano</button>
+    </div>
+  </div>
+
+  <!-- LOC: Montanhas Eternas -->
+  <div id="page-loc-mountains" class="page">
+    <div class="page-inner scrollable">
+      <button class="btn-back-map" onclick="App.show('board')">← Voltar ao Mapa</button>
+      <div class="loc-page-hero" style="--loc-color:#e0e8ff">
+        <div class="lph-icon">⛰</div>
+        <div class="lph-info">
+          <div class="lph-tag">Nível 5+ · Lendário</div>
+          <h2 class="lph-title">Montanhas Eternas</h2>
+          <div class="lph-stars" style="color:#9c27b0">★★★★★ <span>Lendário</span></div>
+        </div>
+      </div>
+      <div class="loc-page-body">
+        <div class="loc-lore-block">
+          <h3>História</h3>
+          <p>As Montanhas Eternas existem desde antes do reino, antes dos elfos, antes de qualquer memória registrada. Seus picos tocam as nuvens e seu gelo nunca derrete — nem no verão mais quente, nem no fogo de um dragão.</p>
+          <p>É aqui que nasce a <em>Chama Inversa</em> — um fogo azul que queima o sobrenatural sem tocar o físico. A única substância conhecida capaz de ferir permanentemente as escamas de Valdrak, que são imunes ao fogo comum.</p>
+          <p>O quinto e último fragmento do Grimório está gravado na pedra do pico mais alto, protegido por Grifos das Neves que servem ao dragão há séculos. Chegar lá é quase impossível. Voltar de lá é lendário.</p>
+        </div>
+        <div class="loc-lore-block">
+          <h3>Perigos</h3>
+          <ul class="loc-list">
+            <li>🦅 Grifos das Neves — voam, atacam em grupo de 3, 80 HP cada</li>
+            <li>🧊 Gigantes de Gelo — força devastadora, 4d10+12 de dano por golpe</li>
+            <li>❄ Tempestade Eterna — -2 de movimento e -4 em testes de percepção</li>
+            <li>🌨 Avalanche — evento aleatório, 8d6 de dano em área, CD 18 DEX para metade</li>
+            <li>🏔 Altitude — acima do terceiro pico, heróis perdem 5 HP por turno sem equipamento especial</li>
+          </ul>
+        </div>
+        <div class="loc-lore-block">
+          <h3>A Chama Inversa</h3>
+          <p>Heróis que coletam a Chama Inversa causam <strong>+50% de dano</strong> contra Valdrak na batalha final. Combinada com todos os 5 fragmentos do Grimório, a vitória permanente é possível. Sem ela, mesmo derrotado, o dragão pode regenerar suas escamas ao longo de décadas.</p>
+        </div>
+        <div class="loc-lore-block">
+          <h3>O Oráculo do Pico</h3>
+          <p><strong>Aethos, o Grifo Ancião</strong> — diferente dos outros grifos, Aethos não serve a Valdrak. Ele é tão antigo quanto as montanhas e guarda o Fragmento V por dever, não por lealdade. Heróis que chegam ao pico mais alto sem usar violência recebem o fragmento e a bênção de Aethos — +10 HP máximo permanente.</p>
+        </div>
+      </div>
+      <button class="loc-enter-btn" style="--loc-color:#e0e8ff" onclick="App.goPlay()">⚔ Escalar as Montanhas</button>
+    </div>
+  </div>
+
+  <!-- LOC: Castelo Real -->
+  <div id="page-loc-castle" class="page">
+    <div class="page-inner scrollable">
+      <button class="btn-back-map" onclick="App.show('board')">← Voltar ao Mapa</button>
+
+      <!-- ANIMAÇÃO CASTELO -->
+      <div class="castle-anim-wrap">
+        <div class="castle-anim">
+          <div class="ca-sky"></div>
+          <div class="ca-moon">🌑</div>
+          <div class="ca-stars">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <div class="ca-castle">
+            <div class="ca-tower ca-tower-l">
+              <div class="ca-battlement"><span></span><span></span><span></span></div>
+              <div class="ca-window"></div>
+            </div>
+            <div class="ca-tower ca-tower-c">
+              <div class="ca-battlement"><span></span><span></span><span></span><span></span><span></span></div>
+              <div class="ca-flag">⚑</div>
+              <div class="ca-window"></div>
+              <div class="ca-window"></div>
+            </div>
+            <div class="ca-tower ca-tower-r">
+              <div class="ca-battlement"><span></span><span></span><span></span></div>
+              <div class="ca-window"></div>
+            </div>
+            <div class="ca-wall">
+              <div class="ca-gate">🚪</div>
+            </div>
+          </div>
+          <div class="ca-ground"></div>
+          <div class="ca-fog"></div>
+          <div class="ca-title-anim">CASTELO REAL DE VALDORIA</div>
+          <div class="ca-subtitle-anim">☠ BOSS FINAL · NÍVEL 5+ · PERIGO MÁXIMO ☠</div>
+        </div>
+      </div>
+
+      <div class="loc-page-body">
+
+        <!-- TEXTO RESUMIDO -->
+        <div class="loc-lore-block castle-block">
+          <h3>🏰 O Castelo</h3>
+          <p>Erguido pela Dinastia Aldric há 700 anos, o Castelo Real foi o coração do reino — até a Noite da Queda, no Ano 847, quando o dragão <strong>Valdrak</strong> emergiu dos selos sob o trono e devorou o último rei. Hoje é uma fortaleza de sombras, habitada por mortos-vivos, cavaleiros corrompidos e o próprio dragão adormecido no Salão do Trono.</p>
+        </div>
+
+        <!-- FLASHCARDS: ZONAS -->
+        <div class="fc-section-title">🗺 Zonas do Castelo</div>
+        <div class="fc-grid">
+          <div class="fc-card" style="--fc-color:#9c27b0">
+            <div class="fc-icon">🚪</div>
+            <div class="fc-name">Portão Principal</div>
+            <div class="fc-desc">Grades fundidas. Cavaleiros Corrompidos patrulham — ex-guardas que trocaram a alma por vida eterna.</div>
+          </div>
+          <div class="fc-card" style="--fc-color:#8b3fc8">
+            <div class="fc-icon">🏛</div>
+            <div class="fc-name">Grande Salão</div>
+            <div class="fc-desc">Banquetes virados. O fantasma do Arquivista ainda cataloga o caos sem saber que está morto.</div>
+          </div>
+          <div class="fc-card" style="--fc-color:#7a2fb8">
+            <div class="fc-icon">📚</div>
+            <div class="fc-name">Biblioteca Real</div>
+            <div class="fc-desc">10.000 volumes. Livros atacam intrusos. Contém o Fragmento Zero do Grimório.</div>
+          </div>
+          <div class="fc-card" style="--fc-color:#c4874a">
+            <div class="fc-icon">⚗</div>
+            <div class="fc-name">Torre do Arquimago</div>
+            <div class="fc-desc">Experimentos continuam sozinhos. Serath tentou criar uma arma contra Valdrak. Criou algo pior.</div>
+          </div>
+          <div class="fc-card" style="--fc-color:#f44336">
+            <div class="fc-icon">👑</div>
+            <div class="fc-name">Salão do Trono</div>
+            <div class="fc-desc">Trono de Obsidiana partido. Valdrak dorme aqui — esperando alguém corajoso o suficiente para entrar.</div>
+          </div>
+        </div>
+
+        <!-- FLASHCARDS: MASMORRAS -->
+        <div class="fc-section-title">⛓ As Masmorras</div>
+        <div class="fc-grid">
+          <div class="fc-card" style="--fc-color:#4caf50">
+            <div class="fc-icon">💀</div>
+            <div class="fc-name">Nível 1 — Condenados</div>
+            <div class="fc-desc">Zumbis Reais em grupos de 10–20. Lentos mas numerosos.<br><em>Recompensa: Chaves das masmorras inferiores</em></div>
+          </div>
+          <div class="fc-card" style="--fc-color:#ff9800">
+            <div class="fc-icon">👹</div>
+            <div class="fc-name">Nível 2 — Contenção</div>
+            <div class="fc-desc">Demônio de Pedra solto. Imune a físico — só magia ou Chama Inversa.<br><em>Recompensa: Armadura do Guardião +8 DEF</em></div>
+          </div>
+          <div class="fc-card" style="--fc-color:#f44336">
+            <div class="fc-icon">🔐</div>
+            <div class="fc-name">Nível 3 — Cofre Proibido</div>
+            <div class="fc-desc">Fragmento Zero do Grimório. Com ele, Valdrak pode ser morto permanentemente.<br><em>Ameaça: Lendária</em></div>
+          </div>
+        </div>
+
+        <!-- FLASHCARDS: VALDRAK -->
+        <div class="fc-section-title">🐉 Valdrak — Stats D&D 5e</div>
+        <div class="fc-grid">
+          <div class="fc-card" style="--fc-color:#ef5350">
+            <div class="fc-icon">❤</div>
+            <div class="fc-name">300 HP</div>
+            <div class="fc-desc">Regenera 20 HP/turno sem os fragmentos do Grimório.</div>
+          </div>
+          <div class="fc-card" style="--fc-color:#9c27b0">
+            <div class="fc-icon">🛡</div>
+            <div class="fc-name">CA 22 · ATK +14</div>
+            <div class="fc-desc">Dano: 4d10+8. Imune a Fogo, Frio e Ácido.</div>
+          </div>
+          <div class="fc-card" style="--fc-color:#8b3fc8">
+            <div class="fc-icon">🔥</div>
+            <div class="fc-name">Fase 1 — Desperto</div>
+            <div class="fc-desc">Garra, mordida, sopro de vazio (8d8 cone, CD 20 CON).</div>
+          </div>
+          <div class="fc-card" style="--fc-color:#c0392b">
+            <div class="fc-icon">⚡</div>
+            <div class="fc-name">Fase 2 — Furioso</div>
+            <div class="fc-desc">Velocidade dobrada. Sopro em área (12d8). Invoca 2 Sombras/turno.</div>
+          </div>
+          <div class="fc-card" style="--fc-color:#212121">
+            <div class="fc-icon">☠</div>
+            <div class="fc-name">Fase 3 — Corrompido</div>
+            <div class="fc-desc">Área toda rodada (6d6). Sem Fragmento Zero: explode 10d10 ao morrer.</div>
+          </div>
+        </div>
+
+        <!-- FLASHCARDS: FRAQUEZAS -->
+        <div class="fc-section-title">📖 Fraquezas — Grimório</div>
+        <div class="fc-grid">
+          <div class="fc-card" style="--fc-color:#4caf50">
+            <div class="fc-icon">📜</div>
+            <div class="fc-name">Fragmento I</div>
+            <div class="fc-desc">Prata pura ignora resistência a dano físico.</div>
+          </div>
+          <div class="fc-card" style="--fc-color:#8bc34a">
+            <div class="fc-icon">🌲</div>
+            <div class="fc-name">Fragmento II</div>
+            <div class="fc-desc">Luz élfica causa dano dobrado nas escamas.</div>
+          </div>
+          <div class="fc-card" style="--fc-color:#c4874a">
+            <div class="fc-icon">🏚</div>
+            <div class="fc-name">Fragmento III</div>
+            <div class="fc-desc">Ponto cego 2m à esquerda — posicionamento estratégico.</div>
+          </div>
+          <div class="fc-card" style="--fc-color:#5c9aff">
+            <div class="fc-icon">🌊</div>
+            <div class="fc-name">Fragmento IV</div>
+            <div class="fc-desc">Palavra de comando suprime regeneração por 3 turnos.</div>
+          </div>
+          <div class="fc-card" style="--fc-color:#e0e8ff">
+            <div class="fc-icon">⛰</div>
+            <div class="fc-name">Fragmento V</div>
+            <div class="fc-desc">Chama Inversa destrói o coração permanentemente.</div>
+          </div>
+          <div class="fc-card" style="--fc-color:#9c27b0">
+            <div class="fc-icon">🏰</div>
+            <div class="fc-name">Fragmento Zero</div>
+            <div class="fc-desc">Ritual de banimento permanente. Vitória definitiva.</div>
+          </div>
+        </div>
+
+        <div class="loc-lore-block castle-warning">
+          <div class="cw-icon">⚠</div>
+          <div class="cw-text">
+            <strong>Prepare-se antes de entrar.</strong> Sem os fragmentos, Valdrak regenera 20 HP/turno e é imortal. Com todos os 5, regeneração suprimida e +30% dano. Com o Fragmento Zero, vitória permanente.
+          </div>
+        </div>
+
+      </div>
+      <button class="loc-enter-btn castle-btn" onclick="window.location.href='html/joga.html'">🐉 Enfrentar Valdrak</button>
+    </div>
+  </div>
+
+  <script src="banco/db.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
