@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Criar Conta — Crown of Shadows</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/cadastro.css" />
+</head>
+<body>
+
+  <!-- LOGO -->
+  <div class="logo-wrap">
+    <div class="logo-crown">
+      <svg viewBox="0 0 80 50" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="40,2 52,18 68,8 62,30 18,30 12,8 28,18" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+        <polygon points="40,2 52,18 68,8 62,30 18,30 12,8 28,18" fill="url(#crownGrad)" opacity="0.7"/>
+        <circle cx="40" cy="20" r="5" fill="#8b0000" stroke="#c9a84c" stroke-width="1"/>
+        <circle cx="40" cy="20" r="3" fill="#cc0000" opacity="0.9"/>
+        <defs>
+          <linearGradient id="crownGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#c9a84c"/>
+            <stop offset="100%" stop-color="#5a3e10"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <div class="logo-ornament">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div>
+    <h1 class="logo-title">
+      <span class="logo-line1">CROWN OF</span>
+      <span class="logo-line2">SHADOWS</span>
+    </h1>
+    <div class="logo-ornament">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div>
+  </div>
+
+  <!-- PAINEL DE CADASTRO -->
+  <div class="panel-wrap">
+    <div class="panel">
+
+      <!-- Moldura cantos -->
+      <span class="corner tl"></span>
+      <span class="corner tr"></span>
+      <span class="corner bl"></span>
+      <span class="corner br"></span>
+
+      <!-- Coroa do painel -->
+      <div class="panel-crown">&#9819;</div>
+
+      <h2 class="panel-title">CRIAR CONTA</h2>
+      <p class="panel-sub">Junte-se aos que ousam desafiar a coroa.</p>
+      <div class="divider"><span></span><span class="diamond">&#9670;</span><span></span></div>
+
+      <form id="form-cadastro" novalidate>
+
+        <!-- Nome -->
+        <div class="field-wrap">
+          <div class="input-wrap">
+            <span class="inp-icon">&#128100;</span>
+            <input type="text" id="reg-name" placeholder="Nome de usuário" autocomplete="off" />
+          </div>
+          <div class="field-err" id="err-name"></div>
+        </div>
+
+        <!-- Email -->
+        <div class="field-wrap">
+          <div class="input-wrap">
+            <span class="inp-icon">&#9993;</span>
+            <input type="email" id="reg-email" placeholder="E-mail" autocomplete="off" />
+          </div>
+          <div class="field-err" id="err-email"></div>
+        </div>
+
+        <!-- Senha -->
+        <div class="field-wrap">
+          <div class="input-wrap">
+            <span class="inp-icon">&#128274;</span>
+            <input type="password" id="reg-pass" placeholder="Senha" />
+            <button type="button" class="eye-btn" onclick="togglePass('reg-pass', this)">&#128065;</button>
+          </div>
+          <div class="field-err" id="err-pass"></div>
+        </div>
+
+        <!-- Confirmar Senha -->
+        <div class="field-wrap">
+          <div class="input-wrap">
+            <span class="inp-icon">&#128274;</span>
+            <input type="password" id="reg-pass2" placeholder="Confirmar senha" />
+            <button type="button" class="eye-btn" onclick="togglePass('reg-pass2', this)">&#128065;</button>
+          </div>
+          <div class="field-err" id="err-pass2"></div>
+        </div>
+
+        <!-- Termos -->
+        <div class="terms-wrap">
+          <label class="terms-label">
+            <input type="checkbox" id="reg-terms" />
+            <span class="custom-check"></span>
+            <span class="terms-text">
+              Li e aceito os
+              <a href="#" class="terms-link" onclick="return false;">Termos de Uso</a>
+              e a
+              <a href="#" class="terms-link" onclick="return false;">Política de Privacidade</a>.
+            </span>
+          </label>
+          <div class="field-err" id="err-terms"></div>
+        </div>
+
+        <!-- Botão cadastrar -->
+        <button type="submit" class="btn-register">
+          <span class="btn-deco">&#10022;</span>
+          CADASTRAR
+          <span class="btn-deco">&#10022;</span>
+        </button>
+
+        <div class="field-err form-err" id="err-form"></div>
+        <div class="form-ok hidden" id="form-ok">&#9876; Conta criada! Bem-vindo ao reino.</div>
+
+      </form>
+      <!-- Link login -->
+      <p class="login-link">
+        Já tem uma conta?
+        <a href="../index.html" class="login-anchor">Entrar agora</a>
+      </p>
+
+    </div>
+  </div>
+
+  <script src="../banco/db.js"></script>
+  <script src="../js/cadastro.js"></script>
+</body>
+</html>

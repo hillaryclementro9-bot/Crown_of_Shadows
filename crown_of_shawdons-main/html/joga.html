@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Crown of Shadows — Joga</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/joga.css" />
+</head>
+<body>
+  <div id="global-bg"></div>
+  <div id="global-overlay"></div>
+
+  <!-- ══════════════════════════════════════
+       TELA 1: ESCOLHA DE PERSONAGEM
+  ══════════════════════════════════════ -->
+  <div id="screen-select" class="screen active">
+    <div class="sel-wrap">
+      <div class="sel-header">
+        <button class="joga-back" onclick="window.location.href='../index.html'">← Voltar</button>
+        <div class="sel-title-block">
+          <span class="sel-crown">♛</span>
+          <h1 class="sel-title">ESCOLHA SEU HERÓI</h1>
+          <p class="sel-sub">Três destinos. Uma coroa. Qual caminho você trilhará?</p>
+        </div>
+      </div>
+
+      <div class="sel-cards">
+
+        <!-- HARLEY -->
+        <div class="sel-card" id="selcard-harley" onclick="Select.pick('harley')">
+          <div class="sc-glow glow-purple"></div>
+          <div class="sc-token">🧙</div>
+          <div class="sc-name">Harley</div>
+          <div class="sc-class">✨ Maga Arcana</div>
+          <p class="sc-lore">"Seus olhos violeta guardam segredos de mil feitiços. Onde outros veem pedra, ela vê portais."</p>
+          <div class="sc-stats">
+            <div class="sc-stat"><span class="sc-stat-lbl">HP</span><div class="sc-bar"><div class="sc-fill" style="width:62%;background:var(--red2)"></div></div><span>80</span></div>
+            <div class="sc-stat"><span class="sc-stat-lbl">MP</span><div class="sc-bar"><div class="sc-fill" style="width:100%;background:var(--purple2)"></div></div><span>100</span></div>
+            <div class="sc-stat"><span class="sc-stat-lbl">ATK</span><div class="sc-bar"><div class="sc-fill" style="width:82%;background:var(--bronze2)"></div></div><span>18</span></div>
+            <div class="sc-stat"><span class="sc-stat-lbl">DEF</span><div class="sc-bar"><div class="sc-fill" style="width:44%;background:#4caf50"></div></div><span>8</span></div>
+          </div>
+          <div class="sc-ability">✨ <strong>Arcane Orb</strong> — Projétil mágico, 30 dano, custa 25 MP</div>
+          <div class="sc-tags"><span class="sc-tag">Mago</span><span class="sc-tag">Longa distância</span><span class="sc-tag">Alto dano</span></div>
+          <div class="sc-select-btn" id="scbtn-harley">Selecionar Harley</div>
+        </div>
+
+        <!-- MORGAN -->
+        <div class="sel-card featured-card" id="selcard-morgan" onclick="Select.pick('morgan')">
+          <div class="sc-glow glow-red"></div>
+          <div class="sc-featured">⭐ DESTAQUE</div>
+          <div class="sc-token">⚔</div>
+          <div class="sc-name">Morgan</div>
+          <div class="sc-class">🛡 Guerreira de Ferro</div>
+          <p class="sc-lore">"Cabelos vermelhos como chamas, vontade inabalável como aço. Sua lâmina nunca errou o alvo."</p>
+          <div class="sc-stats">
+            <div class="sc-stat"><span class="sc-stat-lbl">HP</span><div class="sc-bar"><div class="sc-fill" style="width:100%;background:var(--red2)"></div></div><span>130</span></div>
+            <div class="sc-stat"><span class="sc-stat-lbl">MP</span><div class="sc-bar"><div class="sc-fill" style="width:31%;background:var(--purple2)"></div></div><span>40</span></div>
+            <div class="sc-stat"><span class="sc-stat-lbl">ATK</span><div class="sc-bar"><div class="sc-fill" style="width:100%;background:var(--bronze2)"></div></div><span>22</span></div>
+            <div class="sc-stat"><span class="sc-stat-lbl">DEF</span><div class="sc-bar"><div class="sc-fill" style="width:100%;background:#4caf50"></div></div><span>18</span></div>
+          </div>
+          <div class="sc-ability">⚔ <strong>Golpe Poderoso</strong> — Devastador corpo a corpo, 40 dano</div>
+          <div class="sc-tags"><span class="sc-tag">Guerreira</span><span class="sc-tag">Tanque</span><span class="sc-tag">Alto HP</span></div>
+          <div class="sc-select-btn" id="scbtn-morgan">Selecionar Morgan</div>
+        </div>
+
+        <!-- LYRIA -->
+        <div class="sel-card" id="selcard-lyria" onclick="Select.pick('lyria')">
+          <div class="sc-glow glow-dark"></div>
+          <div class="sc-token">🗡</div>
+          <div class="sc-name">Lyria</div>
+          <div class="sc-class">🌑 Ladra das Sombras</div>
+          <p class="sc-lore">"Ela se move como fumaça na noite. Seus golpes críticos são lendários entre os bardos do reino."</p>
+          <div class="sc-stats">
+            <div class="sc-stat"><span class="sc-stat-lbl">HP</span><div class="sc-bar"><div class="sc-fill" style="width:69%;background:var(--red2)"></div></div><span>90</span></div>
+            <div class="sc-stat"><span class="sc-stat-lbl">MP</span><div class="sc-bar"><div class="sc-fill" style="width:60%;background:var(--purple2)"></div></div><span>60</span></div>
+            <div class="sc-stat"><span class="sc-stat-lbl">ATK</span><div class="sc-bar"><div class="sc-fill" style="width:90%;background:var(--bronze2)"></div></div><span>20</span></div>
+            <div class="sc-stat"><span class="sc-stat-lbl">DEF</span><div class="sc-bar"><div class="sc-fill" style="width:67%;background:#4caf50"></div></div><span>12</span></div>
+          </div>
+          <div class="sc-ability">🗡 <strong>Ataque Sombrio</strong> — 30% chance de crítico, 35 dano</div>
+          <div class="sc-tags"><span class="sc-tag">Ladra</span><span class="sc-tag">Crítico</span><span class="sc-tag">Velocidade</span></div>
+          <div class="sc-select-btn" id="scbtn-lyria">Selecionar Lyria</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       TELA 2: FICHA DO PERSONAGEM + INICIAR
+  ══════════════════════════════════════ -->
+  <div id="screen-sheet" class="screen">
+    <div class="sheet-wrap">
+      <div class="sheet-header">
+        <button class="joga-back" onclick="Select.backToSelect()">← Trocar Herói</button>
+        <span class="sheet-crown">♛</span>
+      </div>
+      <div class="sheet-body">
+        <div class="sheet-left">
+          <div class="sheet-token" id="sheet-token">🧙</div>
+          <div class="sheet-name" id="sheet-name">Harley</div>
+          <div class="sheet-class" id="sheet-class">Maga Arcana</div>
+          <div class="sheet-lore" id="sheet-lore"></div>
+          <div class="sheet-tags" id="sheet-tags"></div>
+        </div>
+        <div class="sheet-right">
+          <div class="sheet-section-title">📊 ATRIBUTOS</div>
+          <div class="sheet-attrs" id="sheet-attrs"></div>
+          <div class="sheet-section-title" style="margin-top:1rem">⚡ HABILIDADE ESPECIAL</div>
+          <div class="sheet-ability" id="sheet-ability"></div>
+          <div class="sheet-section-title" style="margin-top:1rem">📜 HISTÓRIA</div>
+          <div class="sheet-story" id="sheet-story"></div>
+        </div>
+      </div>
+      <div class="sheet-footer">
+        <button class="btn-start" onclick="Select.startGame()">⚔ Iniciar Aventura</button>
+        <button class="btn-tutorial" onclick="Select.goTutorial()">📖 Ver Tutorial Primeiro</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       TELA 3: TUTORIAL (MESTRE NARRA)
+  ══════════════════════════════════════ -->
+  <div id="screen-tutorial" class="screen">
+    <div class="tut-wrap">
+      <div class="tut-header">
+        <button class="joga-back" style="font-size:0.9rem;padding:0.5rem 1.1rem" onclick="Tutorial.skip()">Pular Tutorial</button>
+        <div class="tut-step-bar">
+          <div class="tut-step-fill" id="tut-step-fill"></div>
+        </div>
+        <span class="tut-step-label" id="tut-step-label">1 / 6</span>
+      </div>
+      <div class="tut-body">
+        <div class="tut-master">
+          <div class="tut-master-avatar-wrap">
+            <img class="tut-master-img" src="../assets/images/mestre.jpg"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+              alt="Mestre Valdris" />
+            <div class="tut-master-fallback">V</div>
+          </div>
+          <div class="tut-master-name">Mestre Valdris</div>
+        </div>
+        <div class="tut-bubble" id="tut-bubble">
+          <div class="tut-text" id="tut-text"></div>
+        </div>
+        <div class="tut-visual" id="tut-visual"></div>
+      </div>
+      <div class="tut-footer">
+        <button class="tut-btn-prev" id="tut-prev" onclick="Tutorial.prev()">← Anterior</button>
+        <button class="tut-btn-next" id="tut-next" onclick="Tutorial.next()">Próximo →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       TELA 4: JOGO
+  ══════════════════════════════════════ -->
+  <div id="screen-game" class="screen">
+
+    <header id="joga-header">
+      <button class="joga-back" onclick="window.location.href='../index.html'">← Sair</button>
+      <div class="joga-title-wrap">
+        <span class="joga-crown">♛</span>
+        <span class="joga-title">CROWN OF SHADOWS</span>
+      </div>
+      <div id="joga-nav-stats" class="joga-nav-stats hidden">
+        <div class="jns-item">
+          <span class="jns-icon">🪙</span>
+          <span id="jns-gold" class="jns-val">0</span>
+        </div>
+        <div class="jns-sep"></div>
+        <div class="jns-item">
+          <span class="jns-icon">⭐</span>
+          <span id="jns-xp" class="jns-val">0</span>
+          <span class="jns-lbl">XP</span>
+        </div>
+        <div class="jns-sep"></div>
+        <div class="jns-item">
+          <span class="jns-icon">🛡</span>
+          <span class="jns-lbl">Lv.</span>
+          <span id="jns-level" class="jns-val">1</span>
+        </div>
+      </div>
+      <div class="joga-round-badge">Rodada <span id="round-num">1</span></div>
+    </header>
+
+    <!-- BANNER DO MESTRE — topo da tela -->
+    <div id="master-banner" class="master-banner">
+      <div class="mb-avatar-wrap">
+        <!-- Substitua o src pela foto do Mestre: assets/images/mestre.jpg -->
+        <img class="mb-avatar-img" src="../assets/images/mestre.jpg"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+          alt="Mestre Valdris" />
+        <div class="mb-avatar-fallback">V</div>
+      </div>
+      <div class="mb-content">
+        <div class="mb-name">MESTRE VALDRIS <span class="mb-subtitle">— Narrador das Sombras</span></div>
+        <div class="mb-text" id="mb-text">O reino aguarda seu destino, aventureiro...</div>
+      </div>
+    </div>
+
+    <main id="joga-main">
+
+      <!-- PAINEL ESQUERDO -->
+      <aside id="panel-heroes">
+        <div class="ph-title">⚔ HERÓIS</div>
+        <div id="heroes-list"></div>
+        <div class="dice-section">
+          <div class="dice-label">DADO D20</div>
+          <div id="dice-face" class="dice-face">?</div>
+          <button id="btn-roll" class="btn-roll" onclick="Joga.rollDice()">Rolar Dado</button>
+          <div id="dice-msg" class="dice-msg"></div>
+        </div>
+      </aside>
+
+      <!-- CENTRO: tabuleiro -->
+      <section id="board-wrap">
+        <div id="ludo-board"></div>
+        <div class="turn-banner">Turno de <span id="turn-name">—</span></div>
+      </section>
+
+      <!-- PAINEL DIREITO -->
+      <aside id="panel-right">
+
+        <!-- PAINEL DE ACAO (turno normal) -->
+        <div id="action-panel" class="action-panel hidden">
+          <div class="ap-title">O QUE FAZER?</div>
+          <div id="ap-node-info" class="ap-node-info"></div>
+          <div class="ap-btns" id="ap-btns"></div>
+        </div>
+
+        <!-- COMBATE -->
+        <div id="combat-panel" class="combat-panel hidden">
+          <div class="cp-title">COMBATE</div>
+          <div id="cp-enemy" class="cp-enemy"></div>
+          <div id="cp-bars" class="cp-bars"></div>
+          <div class="cp-btns">
+            <button class="cp-btn cp-attack"  onclick="Joga.combatAction('attack')">Atacar (d20)</button>
+            <button class="cp-btn cp-ability" onclick="Joga.combatAction('ability')">Habilidade Especial</button>
+            <button class="cp-btn cp-flee"    onclick="Joga.combatAction('flee')">Tentar Fugir</button>
+          </div>
+          <div id="cp-log" class="cp-log"></div>
+        </div>
+
+        <!-- TESOURO / PISTA -->
+        <div id="treasure-panel" class="treasure-panel hidden">
+          <div class="tp-title" id="tp-title">TESOURO!</div>
+          <div id="tp-content" class="tp-content"></div>
+          <button class="btn-roll" onclick="Joga.closeTreasure()">Continuar →</button>
+        </div>
+
+        <!-- PISTAS -->
+        <div class="pr-title" style="margin-top:0.3rem">FRAGMENTOS DO GRIMORIO</div>
+        <div id="clues-box" class="clues-box"></div>
+
+        <!-- LOG -->
+        <div class="pr-title">LOG</div>
+        <div id="log-box"></div>
+
+        <!-- LEGENDA -->
+        <div class="legend">
+          <div class="leg-title">LEGENDA</div>
+          <div class="leg-item"><span class="leg-dot" style="background:#4caf50"></span>Inicio</div>
+          <div class="leg-item"><span class="leg-dot" style="background:#e74c3c"></span>Batalha</div>
+          <div class="leg-item"><span class="leg-dot" style="background:#ffd700"></span>Tesouro</div>
+          <div class="leg-item"><span class="leg-dot" style="background:#4caf50"></span>Cura</div>
+          <div class="leg-item"><span class="leg-dot" style="background:#5c9aff"></span>Armadilha</div>
+          <div class="leg-item"><span class="leg-dot" style="background:#ffc107"></span>Pista/Grimorio</div>
+          <div class="leg-item"><span class="leg-dot" style="background:#ff4444"></span>Dragao (Boss)</div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <!-- MODAL VITÓRIA -->
+  <div id="modal-win" class="joga-modal hidden">
+    <div class="jm-box">
+      <div class="jm-icon">♛</div>
+      <h2 class="jm-title">VITÓRIA!</h2>
+      <p class="jm-sub" id="win-msg"></p>
+      <div id="win-stats" class="win-stats"></div>
+      <button class="btn-roll" onclick="Joga.restart()">⚔ Jogar Novamente</button>
+      <button class="btn-back-j" onclick="window.location.href='../index.html'">← Menu Principal</button>
+    </div>
+  </div>
+
+  <!-- MODAL DERROTA -->
+  <div id="modal-lose" class="joga-modal hidden">
+    <div class="jm-box jm-lose">
+      <div class="jm-icon">💀</div>
+      <h2 class="jm-title" style="color:#e74c3c">DERROTA</h2>
+      <p class="jm-sub" id="lose-msg">Todos os heróis caíram nas sombras...</p>
+      <button class="btn-roll" onclick="Joga.restart()">⚔ Tentar Novamente</button>
+      <button class="btn-back-j" onclick="window.location.href='../index.html'">← Menu Principal</button>
+    </div>
+  </div>
+
+  <script src="../banco/db.js"></script>
+  <script src="../js/joga.js"></script>
+</body>
+</html>

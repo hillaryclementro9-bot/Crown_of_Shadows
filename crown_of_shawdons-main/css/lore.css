@@ -1,0 +1,273 @@
+/* ── LORE PAGE ─────────────────────────────────────────── */
+#page-lore {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* fundo: livro antigo à luz de velas */
+.lore-bg {
+  position: absolute;
+  inset: 0;
+  background: url('../assets/livro.png') center center / cover no-repeat;
+  filter: brightness(0.55) saturate(0.85);
+  z-index: 0;
+}
+
+/* vinheta sobre o fundo */
+#page-lore::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.72) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ── WRAP ── */
+.lore-book-wrap {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 780px;
+  padding: 24px 16px;
+  display: flex;
+  justify-content: center;
+}
+
+/* ── LIVRO / PAINEL ── */
+.lore-book {
+  width: 100%;
+  background:
+    linear-gradient(rgba(20,12,4,0.82), rgba(20,12,4,0.82)),
+    url('../assets/livro.png') center / cover no-repeat;
+  border: 2px solid #7a5c2a;
+  border-radius: 4px;
+  box-shadow:
+    0 0 0 1px #3a2a10,
+    0 0 40px rgba(180,120,30,0.25),
+    inset 0 0 60px rgba(0,0,0,0.6);
+  padding: 40px 48px 32px;
+  position: relative;
+}
+
+/* cantos ornamentais */
+.lore-book::before,
+.lore-book::after {
+  content: '✦';
+  position: absolute;
+  color: #7a5c2a;
+  font-size: 18px;
+  opacity: 0.7;
+}
+.lore-book::before { top: 10px; left: 14px; }
+.lore-book::after  { bottom: 10px; right: 14px; }
+
+/* ── BOTÃO VOLTAR ── */
+.lore-back {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: transparent;
+  border: 1px solid #5a3e18;
+  color: #b8922a;
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 2px;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: background 0.2s, color 0.2s;
+}
+.lore-back:hover { background: rgba(180,120,30,0.15); color: #e8c060; }
+
+/* ── ABAS DE CAPÍTULO ── */
+.lore-chapter-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 28px;
+  justify-content: center;
+}
+.lore-tab {
+  width: 36px;
+  height: 36px;
+  background: rgba(60,40,10,0.6);
+  border: 1px solid #5a3e18;
+  color: #8a6a30;
+  font-family: 'Georgia', serif;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+.lore-tab:hover { border-color: #b8922a; color: #d4a840; }
+.lore-tab.active {
+  background: rgba(120,80,20,0.4);
+  border-color: #c8a040;
+  color: #e8c060;
+  box-shadow: 0 0 8px rgba(200,160,60,0.3);
+}
+
+/* ── PÁGINAS ── */
+.lore-pages { position: relative; }
+.lore-page { display: none; animation: loreFadeIn 0.4s ease; }
+.lore-page.active { display: block; }
+
+@keyframes loreFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── TIPOGRAFIA ── */
+.lore-drop-cap {
+  float: left;
+  font-family: 'Georgia', serif;
+  font-size: 72px;
+  line-height: 0.75;
+  margin: 6px 10px 0 0;
+  color: #c8a040;
+  text-shadow: 0 0 20px rgba(200,160,60,0.5);
+}
+
+.lore-chapter-title {
+  font-family: 'Georgia', serif;
+  font-size: 22px;
+  color: #e8c060;
+  text-align: center;
+  letter-spacing: 0.12em;
+  margin: 0 0 6px;
+  text-shadow: 0 0 12px rgba(200,160,60,0.4);
+}
+
+.lore-divider {
+  text-align: center;
+  color: #7a5c2a;
+  letter-spacing: 8px;
+  margin-bottom: 18px;
+  font-size: 12px;
+}
+
+.lore-book p {
+  font-family: 'Georgia', serif;
+  font-size: 14.5px;
+  line-height: 1.8;
+  color: #c8b090;
+  margin-bottom: 14px;
+  text-align: justify;
+}
+
+.lore-ornament {
+  text-align: center;
+  color: #7a5c2a;
+  font-size: 18px;
+  margin: 16px 0;
+}
+
+/* ── CITAÇÃO ── */
+.lore-quote {
+  border-left: 3px solid #7a5c2a;
+  margin: 20px 0;
+  padding: 12px 20px;
+  background: rgba(60,40,10,0.4);
+  font-family: 'Georgia', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: #d4b070;
+  line-height: 1.7;
+}
+.lore-quote-attr {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #8a6a30;
+  font-style: normal;
+}
+
+/* ── TIMELINE ── */
+.lore-timeline {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.tl-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.tl-year {
+  min-width: 72px;
+  font-family: 'Georgia', serif;
+  font-size: 12px;
+  color: #c8a040;
+  font-weight: bold;
+  padding-top: 2px;
+}
+.tl-text {
+  font-family: 'Georgia', serif;
+  font-size: 13px;
+  color: #a08060;
+  line-height: 1.5;
+}
+
+/* ── HERÓIS ── */
+.lore-heroes-row {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 20px;
+}
+.lore-hero-badge {
+  text-align: center;
+  font-size: 28px;
+  color: #c8a040;
+  line-height: 1.4;
+}
+.lore-hero-badge small {
+  display: block;
+  font-family: 'Georgia', serif;
+  font-size: 12px;
+  color: #8a6a30;
+  letter-spacing: 0.1em;
+}
+
+/* ── CTA ── */
+.lore-cta-wrap { text-align: center; margin-top: 24px; }
+.lore-cta-btn {
+  background: linear-gradient(135deg, #7a4a10, #c8a040);
+  border: 1px solid #e8c060;
+  color: #1a0e04;
+  font-family: 'Georgia', serif;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  padding: 12px 32px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.25s;
+  box-shadow: 0 0 16px rgba(200,160,60,0.3);
+}
+.lore-cta-btn:hover {
+  background: linear-gradient(135deg, #c8a040, #e8c060);
+  box-shadow: 0 0 24px rgba(200,160,60,0.5);
+  transform: translateY(-1px);
+}
+
+/* ── NÚMERO DE PÁGINA ── */
+.lore-page-num {
+  text-align: center;
+  margin-top: 24px;
+  font-family: 'Georgia', serif;
+  font-size: 12px;
+  color: #5a3e18;
+  letter-spacing: 0.1em;
+}
+
+/* ── RESPONSIVO ── */
+@media (max-width: 600px) {
+  .lore-book { padding: 28px 20px 24px; }
+  .lore-drop-cap { font-size: 52px; }
+  .lore-chapter-title { font-size: 18px; }
+}

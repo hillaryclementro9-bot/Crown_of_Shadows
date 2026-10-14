@@ -1,0 +1,449 @@
+/* ============================================
+   CROWN OF SHADOWS — cadastro.css
+   ============================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --gold:      #c9a84c;
+  --gold2:     #8b6914;
+  --gold-dim:  rgba(201,168,76,0.25);
+  --red:       #7a0000;
+  --red2:      #a00000;
+  --red-link:  #c0392b;
+  --text:      #e8d5b0;
+  --text2:     #a08060;
+  --text3:     #6a5040;
+  --bg-panel:  rgba(8,4,2,0.92);
+  --border:    rgba(201,168,76,0.35);
+  --radius:    4px;
+  --trans:     0.3s ease;
+}
+
+html, body {
+  min-height: 100%;
+  font-family: 'Crimson Text', Georgia, serif;
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+body {
+  background:
+    linear-gradient(rgba(0,0,0,0.30), rgba(0,0,0,0.50)),
+    url('../assets/cripta.png') center/cover fixed no-repeat;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem 4rem;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--gold2); border-radius: 3px; }
+
+/* ══════════════════════════════════════
+   LOGO
+   ══════════════════════════════════════ */
+.logo-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  margin-bottom: 1.8rem;
+  text-align: center;
+}
+
+.logo-crown svg {
+  width: clamp(60px, 10vw, 90px);
+  height: auto;
+  filter: drop-shadow(0 0 10px rgba(201,168,76,0.5));
+}
+
+.logo-ornament {
+  font-size: 0.65rem;
+  letter-spacing: 6px;
+  color: var(--red-link);
+  opacity: 0.8;
+}
+
+.logo-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+  gap: 0.1rem;
+}
+
+.logo-line1 {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1rem, 3.5vw, 1.6rem);
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 8px;
+  text-shadow: 0 0 20px rgba(201,168,76,0.3);
+}
+
+.logo-line2 {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2rem, 7vw, 4rem);
+  font-weight: 900;
+  color: var(--gold);
+  letter-spacing: 5px;
+  text-shadow:
+    0 0 30px rgba(201,168,76,0.6),
+    0 0 60px rgba(201,168,76,0.2),
+    2px 2px 4px rgba(0,0,0,0.9);
+}
+
+/* ══════════════════════════════════════
+   PAINEL
+   ══════════════════════════════════════ */
+.panel-wrap {
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+}
+
+.panel {
+  position: relative;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 2.5rem 2rem 2rem;
+  backdrop-filter: blur(12px);
+  box-shadow:
+    0 0 60px rgba(0,0,0,0.8),
+    0 0 30px rgba(122,0,0,0.15),
+    inset 0 0 40px rgba(0,0,0,0.5);
+}
+
+/* Cantos ornamentados */
+.corner {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-color: var(--gold);
+  border-style: solid;
+}
+.corner.tl { top: -1px; left: -1px;  border-width: 2px 0 0 2px; }
+.corner.tr { top: -1px; right: -1px; border-width: 2px 2px 0 0; }
+.corner.bl { bottom: -1px; left: -1px;  border-width: 0 0 2px 2px; }
+.corner.br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+/* Coroa do painel */
+.panel-crown {
+  text-align: center;
+  font-size: 1.8rem;
+  color: var(--gold);
+  filter: drop-shadow(0 0 8px rgba(201,168,76,0.5));
+  margin-bottom: 0.8rem;
+  line-height: 1;
+}
+
+.panel-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.3rem, 4vw, 1.8rem);
+  font-weight: 900;
+  color: var(--text);
+  letter-spacing: 4px;
+  text-align: center;
+  text-shadow: 0 0 20px rgba(201,168,76,0.3), 1px 1px 3px rgba(0,0,0,0.9);
+  margin-bottom: 0.5rem;
+}
+
+.panel-sub {
+  text-align: center;
+  color: var(--text2);
+  font-size: 1rem;
+  font-style: italic;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.8rem;
+}
+
+/* Divisor ◆ */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.6rem;
+}
+.divider span:first-child,
+.divider span:last-child {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold2), transparent);
+}
+.diamond {
+  color: var(--red-link);
+  font-size: 0.7rem;
+  flex-shrink: 0;
+}
+
+/* ══════════════════════════════════════
+   CAMPOS
+   ══════════════════════════════════════ */
+.field-wrap {
+  margin-bottom: 1rem;
+}
+
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inp-icon {
+  position: absolute;
+  left: 0.9rem;
+  font-size: 0.95rem;
+  color: var(--text3);
+  pointer-events: none;
+  z-index: 1;
+  line-height: 1;
+}
+
+.input-wrap input {
+  width: 100%;
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(106,80,64,0.5);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: 'Crimson Text', serif;
+  font-size: 1rem;
+  padding: 0.75rem 2.8rem 0.75rem 2.6rem;
+  transition: var(--trans);
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.input-wrap input::placeholder { color: var(--text3); }
+
+.input-wrap input:focus {
+  border-color: var(--gold);
+  background: rgba(20,12,4,0.7);
+  box-shadow: 0 0 10px rgba(201,168,76,0.2), inset 0 0 8px rgba(0,0,0,0.4);
+}
+
+/* Input date fix */
+input[type="date"] {
+  color-scheme: dark;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.6) sepia(1) saturate(0.5) hue-rotate(10deg);
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+/* Botão olho */
+.eye-btn {
+  position: absolute;
+  right: 0.8rem;
+  background: none;
+  border: none;
+  color: var(--text3);
+  font-size: 0.95rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: color var(--trans);
+}
+.eye-btn:hover { color: var(--gold); }
+
+/* Mensagens de erro */
+.field-err {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+  color: #c0392b;
+  margin-top: 0.3rem;
+  padding-left: 0.3rem;
+  min-height: 0.9rem;
+}
+.field-err:empty { display: none; }
+
+.form-ok {
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  color: #4caf50;
+  padding: 0.6rem;
+  border: 1px solid rgba(76,175,80,0.3);
+  border-radius: var(--radius);
+  background: rgba(76,175,80,0.08);
+  margin-top: 0.5rem;
+}
+.hidden { display: none !important; }
+
+/* ══════════════════════════════════════
+   TERMOS
+   ══════════════════════════════════════ */
+.terms-wrap { margin-bottom: 1.2rem; }
+
+.terms-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  cursor: pointer;
+}
+
+.terms-label input[type="checkbox"] { display: none; }
+
+.custom-check {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  border: 1px solid rgba(201,168,76,0.4);
+  border-radius: 2px;
+  background: rgba(0,0,0,0.5);
+  margin-top: 3px;
+  position: relative;
+  transition: var(--trans);
+}
+.terms-label input:checked + .custom-check {
+  background: var(--red);
+  border-color: var(--gold);
+}
+.terms-label input:checked + .custom-check::after {
+  content: '✔';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  color: var(--gold);
+}
+
+.terms-text {
+  font-size: 0.88rem;
+  color: var(--text2);
+  line-height: 1.5;
+}
+
+.terms-link {
+  color: var(--red-link);
+  text-decoration: underline;
+  transition: color var(--trans);
+}
+.terms-link:hover { color: var(--gold); }
+
+/* ══════════════════════════════════════
+   BOTÃO CADASTRAR
+   ══════════════════════════════════════ */
+.btn-register {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  background: linear-gradient(135deg, #7a0000, #4a0000);
+  border: 1px solid var(--gold2);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: var(--trans);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  box-shadow: 0 4px 20px rgba(122,0,0,0.4), 0 0 10px rgba(201,168,76,0.1);
+  margin-bottom: 0.5rem;
+}
+.btn-register:hover {
+  background: linear-gradient(135deg, #9a0000, #6a0000);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 28px rgba(122,0,0,0.6), 0 0 16px rgba(201,168,76,0.2);
+}
+.btn-register:active { transform: translateY(0); }
+
+.btn-deco {
+  font-size: 0.55rem;
+  color: var(--gold);
+  opacity: 0.7;
+}
+
+/* ══════════════════════════════════════
+   DIVISOR OU
+   ══════════════════════════════════════ */
+.divider-or {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 1.2rem 0;
+}
+.divider-or span:first-child,
+.divider-or span:last-child {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
+}
+.or-text {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  color: var(--text3);
+  flex-shrink: 0;
+}
+
+/* ══════════════════════════════════════
+   BOTÃO GOOGLE
+   ══════════════════════════════════════ */
+.btn-google {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: rgba(10,6,2,0.8);
+  border: 1px solid rgba(106,80,64,0.5);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: var(--trans);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-bottom: 1.4rem;
+}
+.btn-google:hover {
+  border-color: rgba(201,168,76,0.4);
+  background: rgba(20,12,4,0.9);
+  transform: translateY(-1px);
+}
+
+/* ══════════════════════════════════════
+   LINK LOGIN
+   ══════════════════════════════════════ */
+.login-link {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text2);
+}
+.login-anchor {
+  color: var(--gold);
+  text-decoration: underline;
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  transition: color var(--trans);
+  margin-left: 0.3rem;
+}
+.login-anchor:hover { color: var(--red-link); }
+
+/* ══════════════════════════════════════
+   RESPONSIVO
+   ══════════════════════════════════════ */
+@media (max-width: 520px) {
+  body { padding: 1.5rem 0.8rem 3rem; }
+  .panel { padding: 2rem 1.2rem 1.5rem; }
+  .logo-line2 { letter-spacing: 3px; }
+  .panel-title { letter-spacing: 2px; }
+  .btn-register { font-size: 0.8rem; letter-spacing: 2px; }
+}
